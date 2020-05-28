@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Song!</title>
+    {% load static %}
+    <style>
+        #fullpage {
+            background-image: url("{% static 'img/colorful-background.jpg' %}");
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-color: #464646;
+        }
+        #title{
+            width: 400px;
+            height: 50px;
+            text-align: center;
+            margin:auto;
+            padding:10px;
+            border: 1px solid black;
+            background-color: rgb(157, 212, 185);
+            margin-top: 100px;
+            border-radius: 15px;
+        }
+        #sub{
+            text-align:center;
+        }
+        #forms{
+            width: 400px;
+            height: 400px;
+            margin: auto;
+            border: 1px solid black;
+            background-color: rgb(157, 212, 185);
+            padding: 10px;
+            border-radius: 15px;
+            
+        
+        }
+        #forms:hover {
+            background-color: rgb(128, 211, 200);
+        }
+        #formcontent{
+            margin-left: 50px;
+            margin-top: 90px;
+            font-size: 20px;
+        }
+        #btn{
+            background-color:white;
+            width: 80px;
+            border: 1px solid black;
+
+        }
+        #select{
+            background-color: white;
+            margin-left: 10px;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        .inputs{
+            margin-left: 10px;
+            width: 200px;
+        }
+        #song{
+            margin-top: 30px;
+
+        }
+        #artist {
+            margin-top: 30px;
+        }
+        #home{
+            text-decoration: none;
+
+        }
+    </style>
+</head>
+
+<body id="fullpage">
+<div id='container'>
+    <p><a id="home" href="/welcome">Home</a></p>
+    <h1 id='title'>Create a New Song Entry</h1>
+    <h2 id='sub'>Love a song or genre not in our database? Fill out this form!</h2>
+    <div id='forms'>
+        <form id='formcontent' action="/processsong" method="post">
+            {% csrf_token %}
+            <p>Song Title:<input type="text" name="title" id="song" class="inputs"></p>
+            <p>Artist:<input type="text" name="artist" id="artist" class="inputs"></p>
+            
+            <p>Genre:<select id='select' name="genre">
+                <option value="Hip-Hop">Hip-Hop</option>
+                <option value="R&b">R&b</option>
+                <option value="Pop">Pop</option>
+                <option value="Rock">Rock</option>
+                <option value="Country">Country</option>
+                <option value="Alternative">Alternative</option>
+                <option value="Jazz">Jazz</option>
+                <option value="Metal">Metal</option>
+                <option value="Classical">Classical</option>
+                <option value="Blues">Blue</option>
+                <option value="Folk">Folk</option>
+                <option value="EDM">EDM</option>
+                <option value="Punk">Punk</option>
+                <option value="Classic Rock">Classic Rock</option>
+                <option value="Reggae">Reggae</option>
+                <option value="House">House</option>
+                <option value="Techno">Techno</option>
+            </select>
+            <input id='btn' type="submit" value="Add Song">
+            </p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Playlist</title>
+    {% load static %}
+    <style>
+        * {
+            vertical-align: top;
+        }
+        #whole {
+            background-image: url("{% static 'img/colorful.jpg' %}"); 
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        #wrapper {
+            width: 1500px;
+            height: 1000px;
+            margin: auto;
+            padding-top: 100px;
+            
+        }
+        #begin {
+            width: 600px;
+            height: 500px;
+            border: 5px solid black;
+            border-radius: 25px;
+            display: inline-block;
+            margin-left: 100px;
+            margin-top: 100px;
+            padding-top: 150px;
+            
+        }
+        #addsong {
+            width: 600px;
+            height: 500px;
+            border: 5px solid black;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 100px;
+            padding-top: 150px;
+        }
+        #create {
+            margin-left: 50px;
+
+        }
+        #or {
+            margin-left: 50px;
+        }
+        .form {
+            margin-left: 100px;
+            margin-top:50px;
+            
+        }  
+    .pname{
+        margin-right: 100px;
+        font-size: 20px;
+    }
+
+    #gbtn{
+        margin-left: 120px;
+    }
+    #ptitle{
+        margin-left: 110px;
+    }
+
+    #home{
+        text-decoration: none;
+        margin-left: 10px;
+    }
+
+    </style>
+</head>
+<body id="whole">
+<div id="wrapper">
+    <p><a id="home" href="/welcome">Home</a></p>
+    <div id ='begin'>
+    <h1 id='create'>Begin by creating your new playlist.</h1>
+    <form action="/processplaylist" method="post" class='form'>
+            {% csrf_token %} 
+        <p class="pname">What would you like to call this playlist? <input type="text" name="title" id="ptitle"></p>
+        <p class='pname'>Are you collaborating with any users? If not you can always add collaborators later!
+            <select id='' name="otheruser">
+                <option value='0'>None</option>
+            {% for user in allusers %}
+            <option value={{user.id}}>{{user.name}}</option>
+            {% endfor %}
+        </select>
+    </p>
+        <input type="submit" value="Generate Playlist" id='gbtn'>
+    </form></div>
+    <div id='addsong'>
+    <h1 id='or'>Or, add songs to an existing playlist.</h1>
+    <form action="/addsongstoplaylist" method="post" class='form'> 
+            {% csrf_token %} 
+        <p class='pname'>Add some songs to your playlists! You can add up to 5 at a time: <p>
+        <p>Select which one of your playlists you want to add to:
+            <input type="hidden" name="whichform" value='fromadd'>
+            <select id='' name="playlists">
+                {% for playlist in allplaylists %}
+                <option value={{playlist.id}}>{{playlist.name}}</option>
+                {% endfor %}
+                </select>
+        <p>Song 1:  <select id='' name="song1">
+                {% for song in allsongs %}
+                    <option value={{song.id}}>{{song.title}} by {{song.artist}}</option>
+                {% endfor %} </select> </p>   
+        <p>Song 2:  <select id='' name="song2">
+            <option value='0'>None</option>
+                {% for song in allsongs %}
+                    <option value={{song.id}}>{{song.title}} by {{song.artist}}</option>
+                {% endfor %} </select> </p>  
+        <p>Song 3:  <select id='' name="song3">
+            <option value='0'>None</option>
+                {% for song in allsongs %}
+                    <option value={{song.id}}>{{song.title}} by {{song.artist}}</option>
+                {% endfor %} </select> </p>  
+        <p>Song 4:  <select id='' name="song4">
+            <option value='0'>None</option>
+                {% for song in allsongs %}
+                    <option value={{song.id}}>{{song.title}} by {{song.artist}}</option>
+                {% endfor %} </select> </p>  
+        <p>Song 5:  <select id='' name="song5">
+            <option value='0'>None</option>
+                {% for song in allsongs %}
+                    <option value={{song.id}}>{{song.title}} by {{song.artist}}</option>
+                {% endfor %} </select> </p>  
+        <input type="submit" value="Add Songs">
+    </form></div>
+    
+</div>
+</body>
+</html>

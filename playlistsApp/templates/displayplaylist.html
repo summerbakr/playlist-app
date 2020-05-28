@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{thisplaylist.name}}</title>
+    <style>
+        h1 {
+            margin-left: 650px;
+            margin-bottom: 100px;
+            color:  mediumslateblue;
+        }
+        #whole{
+            background-color: black;
+        }
+    
+        #wrapper {
+            margin: 200px auto;
+            width: 1500px;
+            padding: 0px;
+
+
+        }
+        #play{
+            border: 1px solid  mediumslateblue ;
+            display: inline-block;
+            width: 500px;
+            height: 400px;
+            margin: auto;
+            margin-left: 200px;
+            margin-right: 50px;
+            margin-bottom: 100px;
+
+        }
+        #playlistsongs {
+            width: 400px;
+            height: 300px;
+            margin: auto;
+            background-color: mediumslateblue;
+            color: white;
+            overflow: scroll;
+            display: inline-block;
+            padding-left: 100px;
+
+        }
+
+        #form {
+            width: 500px;
+            height:400px;
+            margin: auto;
+            border: 1px solid  mediumslateblue;
+            display: inline-block;
+            margin-bottom: 50px;
+        }
+        .input{
+            background-color: mediumslateblue;
+            color:white;
+
+        }
+        .add{
+            color: mediumslateblue;
+            margin-left: 100px;
+        }
+        #formcontent{
+            margin-top: 58px;
+        }
+        #addbtn{
+            margin-left: 180px;
+            background-color: mediumslateblue;
+            width: 100px;
+            padding: 5px;
+            border-radius: 15px;
+            color: white;
+        }
+        #addbtn:hover{
+            background-color: rgb(191, 99, 199);
+        }
+        #home{
+            display: inline;
+            text-decoration: none;
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body id='whole'>
+<div id='wrapper'>
+    <h1>{{thisplaylist.name}}</h1>
+
+    <div id="play">
+    <h2 class="add">Songs in Playlist {{thisplaylist.name}}</h2>
+    <div id="playlistsongs">
+        {% for song in thisplaylist.songs.all %}
+            <p>{{song.title}} by {{song.artist}}</p>
+        {% endfor %}
+    </div>
+</div>
+    
+    
+<div id='form'>
+    
+    <form action="/addsongstoplaylist" method="post"> 
+        {% csrf_token %} 
+    <h2 class="add">Want to add more?</h2>
+    <p class="add">You can add up to 5 at a time: <p>
+    <p class="add">Adding songs to:  
+        <select class="input" name="playlists">
+            <option value={{thisplaylist.id}}>{{thisplaylist.name}}</option>
+            </select>
+        <input type="hidden" name="whichform" value='fromdisplay'>
+    <div id='formcontent'>
+    <p>Song 1:  <select class='input' name="song1">
+            {% for song in allsongs %}
+                <option value={{song.id}}>{{song.title}} by {{song.artist}}</option>
+            {% endfor %} </select> </p>   
+    <p>Song 2:  <select class='input' name="song2">
+        <option value='0'>None</option>
+            {% for song in allsongs %}
+                <option value={{song.id}}>{{song.title}} by {{song.artist}}</option>
+            {% endfor %} </select> </p>  
+    <p>Song 3:  <select class='input' name="song3">
+        <option value='0'>None</option>
+            {% for song in allsongs %}
+                <option value={{song.id}}>{{song.title}} by {{song.artist}}</option>
+            {% endfor %} </select> </p>  
+    <p>Song 4:  <select class='input' name="song4">
+        <option value='0'>None</option>
+            {% for song in allsongs %}
+                <option value={{song.id}}>{{song.title}} by {{song.artist}}</option>
+            {% endfor %} </select> </p>  
+    <p>Song 5:  <select class='input' name="song5">
+        <option value='0'>None</option>
+            {% for song in allsongs %}
+                <option value={{song.id}}>{{song.title}} by {{song.artist}}</option>
+            {% endfor %} </select> </p>  
+    <input type="submit" value="Add Songs" id="addbtn"></div>
+</form></div>
+<p><a id="home" href="/welcome">Home</a></p>
+</body>
+</html>

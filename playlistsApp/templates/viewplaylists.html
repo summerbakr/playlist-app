@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Playlists</title>
+    <script type='text/javascript'src="https://ajax.googleapis.com/ajax/libs/d3js/5.15.1/d3.min.js"></script>
+    <script type='text/javascript'>
+        $("h2").click(function(){
+            $("#allplaylists").slideToggle(1000);
+    })
+    </script>
+    <style>
+        #wrapper {
+            width: 1000px;
+            margin: auto;
+
+        }
+        .playlist{
+            width: 300px;
+            height: 300px;
+            display: inline-block;
+            margin: 10px;
+        }
+        #creator {
+            background-color: rgb(219, 137, 219);
+        }
+        #collab {
+            background-color: orange;
+
+        }
+        #other {
+            background-color: palegreen;
+        }
+        .deletebtn{
+            margin-top: 80px;
+            margin-left: 100px;
+            background-color: white;
+            border-radius: 15px;
+        }
+        .deletebtn:hover{
+            background-color: red;
+        }
+        .nav{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id='wrapper'>
+<a class='nav' href="/welcome">Home</a> |
+<a class='nav' href='/createplaylist'>Create New Playlist</a>
+    <h2>Your Playlist Creations</h2>
+    <div id='allplaylists'>
+    {% for playlist in allplaylists %}
+    <div class="playlist" id='creator'>
+        <h2><a href="/displayplaylist/{{playlist.id}}">{{playlist.name}}</a></h2> 
+        <p>Created By: {{playlist.creator.name}}</p>
+        <p>Created At: {{playlist.created_at}}</p>
+        <p>Last Updated At: {{playlist.updated_at}}</p>
+        <form action='/deleteplaylist' method='POST'>
+            {% csrf_token %} 
+            <input type="hidden" name="playlist" value={{playlist.id}}/>
+            <input class='deletebtn' type="submit" value="Delete Playlist"/>
+        </form></div>
+    {% endfor %}
+    <h2>Your Collab Playlists</h2>
+    {% for playlist in collabplaylists %}
+    <div class="playlist" id='collab'>
+        <h2><a href="/displayplaylist/{{playlist.id}}">{{playlist.name}}</a></h2> 
+        <p>Created By: {{playlist.creator.name}}</p>
+        <p>Created At: {{playlist.created_at}}</p>
+        <p>Last Updated At: {{playlist.updated_at}}</p>
+        <form action='/deleteplaylist' method='POST'>
+            {% csrf_token %} 
+            <input type="hidden" name="playlist" value={{playlist.id}}>
+            <input class='deletebtn' type="submit" value="Delete Playlist"/>
+        </form></div>
+    {% endfor %}
+    <h2>Other Playlists</h2>
+    {% for playlist in otherplaylists %}
+    <div class="playlist" id='other'>
+        <h2><a href="/displayplaylist/{{playlist.id}}">{{playlist.name}}</a></h2> 
+        <p>Created By: {{playlist.creator.name}}</p>
+        <p>Created At: {{playlist.created_at}}</p>
+        <p>Last Updated At: {{playlist.updated_at}}</p>
+        <form action='/deleteplaylist' method='POST'>
+            {% csrf_token %} 
+            <input type="hidden" name="playlist" value={{playlist.id}}>
+            <input class='deletebtn' type="submit" value="Delete Playlist"/>
+        </form></div>
+    {% endfor %}
+</div>
+
+
+</body>
+</html>
