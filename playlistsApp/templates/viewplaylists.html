@@ -11,9 +11,18 @@
     })
     </script>
     <style>
+         #fullpage {
+            
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-color: black;
+        }
         #wrapper {
             width: 1000px;
             margin: auto;
+            
 
         }
         .playlist{
@@ -43,10 +52,22 @@
         }
         .nav{
             text-decoration: none;
+            color: white;
+        }
+
+        h2{
+            color: white;
+        }
+
+        #playlistname{
+            text-align: center;
+        }
+        #playlistdeets{
+            text-align: center;
         }
     </style>
 </head>
-<body>
+<body id="fullpage">
     <div id='wrapper'>
 <a class='nav' href="/welcome">Home</a> |
 <a class='nav' href='/createplaylist'>Create New Playlist</a>
@@ -54,10 +75,12 @@
     <div id='allplaylists'>
     {% for playlist in allplaylists %}
     <div class="playlist" id='creator'>
-        <h2><a href="/displayplaylist/{{playlist.id}}">{{playlist.name}}</a></h2> 
+        <h2 id="playlistname"><a href="/displayplaylist/{{playlist.id}}">{{playlist.name}}</a></h2> 
+        <div id="playlistdeets">
         <p>Created By: {{playlist.creator.name}}</p>
         <p>Created At: {{playlist.created_at}}</p>
         <p>Last Updated At: {{playlist.updated_at}}</p>
+        </div>
         <form action='/deleteplaylist' method='POST'>
             {% csrf_token %} 
             <input type="hidden" name="playlist" value={{playlist.id}}/>
@@ -67,10 +90,11 @@
     <h2>Your Collab Playlists</h2>
     {% for playlist in collabplaylists %}
     <div class="playlist" id='collab'>
-        <h2><a href="/displayplaylist/{{playlist.id}}">{{playlist.name}}</a></h2> 
+        <h2 id="playlistname"><a href="/displayplaylist/{{playlist.id}}">{{playlist.name}}</a></h2> 
+        <div id="playlistdeets">
         <p>Created By: {{playlist.creator.name}}</p>
         <p>Created At: {{playlist.created_at}}</p>
-        <p>Last Updated At: {{playlist.updated_at}}</p>
+        <p>Last Updated At: {{playlist.updated_at}}</p></div>
         <form action='/deleteplaylist' method='POST'>
             {% csrf_token %} 
             <input type="hidden" name="playlist" value={{playlist.id}}>
@@ -80,10 +104,11 @@
     <h2>Other Playlists</h2>
     {% for playlist in otherplaylists %}
     <div class="playlist" id='other'>
-        <h2><a href="/displayplaylist/{{playlist.id}}">{{playlist.name}}</a></h2> 
+        <h2 id="playlistname"><a href="/displayplaylist/{{playlist.id}}">{{playlist.name}}</a></h2> 
+        <div id="playlistdeets">
         <p>Created By: {{playlist.creator.name}}</p>
         <p>Created At: {{playlist.created_at}}</p>
-        <p>Last Updated At: {{playlist.updated_at}}</p>
+        <p>Last Updated At: {{playlist.updated_at}}</p></div>
         <form action='/deleteplaylist' method='POST'>
             {% csrf_token %} 
             <input type="hidden" name="playlist" value={{playlist.id}}>
